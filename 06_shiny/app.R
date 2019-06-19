@@ -18,15 +18,13 @@ ui <- fluidPage(
              tabPanel("Component 1",
                       sidebarLayout(
                         sidebarPanel(
-                          selectInput("data_input",label="Select data",
-                                      choices=c("Rstudio.source","Python.source")
-                                      ),
-                          textInput(inputId="title",label="Write your plot title here",
-                                    value="Barplot for Top 10 Twitter Source")
+                          selectInput("var_input",label="Select data",
+                                      choices=c("screen_name","source","location")
+                                      )
                         ),
                         
                         mainPanel(
-                          plotOutput("plot_output")
+                          plotOutput("plot_output_var")
                         )
                         )),
              tabPanel("Component 2",
@@ -57,9 +55,16 @@ ui <- fluidPage(
   )
 )
 server <- function(input,output){
-  
+  getdata_var <- reactive({ get(input$var_input) })
   getdata2 <- reactive({ get(input$data_input2) })
   getdata1 <- reactive({ get(input$data_input) })
+  
+  output$plot_output_var<-renderPlot({
+    bar_chart(getdata_var())
+  }
+    
+  )
+  
   
   ## worldcloud output
   output$wordcloud <- renderWordcloud2({
