@@ -1,7 +1,6 @@
 bar_chart <- function(data, var1 = var1){
   var1 <- enquo(var1)
   label <- quo_name(var1)
-  
   data %>% 
     count(!! var1, sort = TRUE) %>%
     slice(1:20) %>% 
@@ -20,4 +19,4 @@ bar_chart <- function(data, var1 = var1){
   
 }
 
-bar_chart(timeline, var1 = source)
+bar_chart(x, var1 = location)
