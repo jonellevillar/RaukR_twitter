@@ -1,7 +1,7 @@
-bar_chart <- function(data, var1 = var1){
+bar_chart <- function( var1 = var1){
   var1 <- enquo(var1)
   label <- quo_name(var1)
-  data %>% 
+  x %>% 
     count(!! var1, sort = TRUE) %>%
     slice(1:20) %>% 
     ggplot(aes(x = reorder(!! var1, -n), y = n, fill = !! var1)) +
@@ -19,4 +19,4 @@ bar_chart <- function(data, var1 = var1){
   
 }
 
-bar_chart(x, var1 = location)
+bar_chart(var1 = location)
